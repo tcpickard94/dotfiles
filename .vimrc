@@ -27,6 +27,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'marcweber/vim-addon-mw-utils'
   Plug 'honza/vim-snippets'
   Plug 'tomtom/tlib_vim'
+  Plug 'justinj/vim-react-snippets'
+  Plug 'keith/swift.vim'
 call plug#end()
 
 " Abbreviations
@@ -75,10 +77,14 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" double space to remove highlights after search
 nnoremap <space><space> :noh<cr>
 
 " remap ; to : in normal mode to save pressing shift
 nnoremap ; :
+
+" remap single quote to back tick for marks
+nnoremap ' `
 
 " remap leader key to `
 let mapleader = "`"
@@ -93,6 +99,9 @@ nmap ga <Plug>(EasyAlign)
 
 " use the . command in visual mode
 vmap . :normal.<cr>
+
+imap <C-J> <Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
 
 " bind ? to grep word under cursor
 nnoremap ? :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -113,12 +122,19 @@ vnoremap <Tab> %
 " Use shift-H and shift-L for move to beginning/end
 nnoremap H 0
 nnoremap L $
+vnoremap H 0
+vnoremap L $
 
 " Quick yanking to the end of the line
 nnoremap Y y$
 
-"  use jshint
-let g:syntastic_javascript_checkers = ['jshint']
+" quick function reindent
+vnoremap g a{=<C-o>
+
+"  use jshint or eslint
+" let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint'
 " show any linting errors immediately
 let g:syntastic_check_on_open = 1
 " ignore angular js and ionic
